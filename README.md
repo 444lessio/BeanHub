@@ -34,7 +34,7 @@ To run the application locally on your computer:
 
 ## 💻 Tech Stack
 
-* **Java 17**
+* **Java 21**
 * **Spring Boot** (with Spring Web for the server)
 * **Thymeleaf** (for server-side rendering of HTML pages)
 * **HTML5** & **CSS3**
