@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <h3>Management</h3>
+            <a th:href="@{/System_manager/dashboard}" style="background-color: #f0f2f5;">Dashboard</a>
+            <a th:href="@{/System_manager/machines}">Machines Management</a>
+            <a th:href="@{/System_manager/attendants}">Attendants Management</a>
+            <a th:href="@{/}" style="color: #dc3545; margin-top: 20px;">Logout</a>
+        </nav>
+
+        <main class="content">
+            <div class="card">
+                <h2>Welcome Manager!</h2>
+                <p>Select an item from the menu on the left to get started.</p>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

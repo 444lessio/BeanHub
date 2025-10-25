@@ -1,0 +1,23 @@
+# File compilati e di build
+target/
+*.class
+*.jar
+*.war
+
+# Log
+*.log
+
+# File specifici degli IDE
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+*.iws
+
+# File di VSC (opzionale, ma consigliato)
+.vscode/
+
+# File del sistema operativo
+.DS_Store
+Thumbs.db

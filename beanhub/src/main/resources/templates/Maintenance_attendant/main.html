@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendant Panel </title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div style="width: 100%; max-width: 600px;">
+
+        <div class="card">
+            <h3>Distributor State Control</h3>
+            <div class="form-group">
+                <label for="dist-id">Insert attendant-id</label>
+                <input type="text" id="dist-id" placeholder="Online">
+            </div>
+            <button>Upload State</button>
+            <a th:href=@{/attendant/login} style="color: #dc3545; text-decoration: none; margin-top: 20px; text-align: center; display: block;">Logout</a>
+        </div>
+
+        <div class="card" id="results-status">
+            <h4>Distributor state: Online</h4>
+            <ul style="list-style-position: inside; margin-top: 15px; font-size: 1.1rem; line-height: 1.6;">
+                <li>Coffe level: <span style="font-weight: 600;">80%</span></li>
+                <li>Cups level: <span style="font-weight: 600;">55%</span></li>
+                <li>Sugar level: <span style="font-weight: 600;">70%</span></li>
+                <li>Faults: <span style="color: #dc3545; font-weight: 600;">Coin block (E-05)</span></li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+</html>

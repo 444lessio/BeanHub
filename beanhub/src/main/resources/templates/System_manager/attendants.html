@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendants Management</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <h3>Gestione</h3>
+            <a th:href="@{/System_manager/dashboard}">Dashboard</a>
+            <a th:href="@{/System_manager/machines}">Machines Management</a>
+            <a th:href="@{/System_manager/attendants}" style="background-color: #f0f2f5;">Attendants Management</a>
+            <a th:href="@{/attendant/login}" style="color: #dc3545; margin-top: 20px;">Logout</a>
+        </nav>
+
+        <main class="content">
+            <div class="card">
+                <h3>Add New Attendant</h3>
+                <form th:action="@{/System_manager/attendants}" method="get">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email">
+                    </div>
+                    <button type="submit">Add Attendant</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3>Maintenance Attendants List</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Attendant ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A-001</td>
+                            <td>Lorenzo Patti</td>
+                            <td>LollinoPane_e_Vino@coffee.com</td>
+                            <td><button class="remove">Remove</button></td>
+                        </tr>
+                        <tr>
+                            <td>A-002</td>
+                            <td>Antonino Randazzo</td>
+                            <td>AntoninoRandazzo@coffee.com</td>
+                            <td><button class="remove">Remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Globalstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="Machines_status.xsd">
+  
+  <distributor id="Online" state="active">
+    <position>Building 19, Floor</position>
+    <supply>
+      <coffee>85</coffee>
+      <milk>70</milk>
+      <sugar>90</sugar>
+      <cups>150</cups>
+    </supply>
+    <faults>
+      </faults>
+  </distributor>
+  
+  <distributor id="Offline" state="maintenance">
+    <position>Building 7, Aula 3.1</position>
+    <supply>
+      <coffee>10</coffee>
+      <milk>0</milk>
+      <sugar>40</sugar>
+      <cups>25</cups>
+    </supply>
+    <faults>
+      <fault code="M-01">Lack of milk</fault>
+      <fault code="E-05">Coin block</fault>
+    </faults>
+  </distributor>
+  
+  <distributor id="Offline" state="offline">
+    <position>Library,  Study Area</position>
+    <supply>
+      <coffee>0</coffee>
+      <milk>0</milk>
+      <sugar>0</sugar>
+      <cups>0</cups>
+    </supply>
+    <faults>
+      <fault code="P-00">Out of service</fault>
+    </faults>
+  </distributor>
+
+</Globalstate>

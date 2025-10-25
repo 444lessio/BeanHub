@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendant Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div class="card">
+        <h2>Maintenance Attendant Login</h2>
+        <form th:action="@{/attendant/main}" method="get">
+            <div class="form-group">
+                <label for="attendant-id">Attendant ID</label>
+                <input type="text" id="attendant-id" name="attendant-id" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+</body>
+</html>

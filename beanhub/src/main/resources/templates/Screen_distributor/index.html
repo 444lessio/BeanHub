@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang = "en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset = "ITF-8">
+    <meta name = "viewport" content = "width=device-width, inital-scale=1.0">
+    <title>Coffee Distributor</title>
+    <link rel ="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+    <div class="card distributor-container">
+        <div class="distributor-header">
+            <h3>User: Alessio Alduina</h3>
+            <p>Credit: € 2.50</p>
+        </div>
+
+        <div class="drinks-grid">
+            <button>Espresso Coffee</button>
+            <button>American Coffee</button>
+            <button>Cappuccino</button>
+            <button>Chocolate</button>
+            <button>Lemon Thè</button>
+            <button>Macchiato Milk</button>
+        </div>
+
+        <div class="sugar-options">
+            <label>Sugar:</label>
+            <input type="range" min="0" max="5" value="2" step="1">
+            <span>Medium</span>
+        </div>
+
+        <button id="purchase">Dispensa Drink</button>
+    </div>
+</body>
+</html>
