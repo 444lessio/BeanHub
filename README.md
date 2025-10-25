@@ -1,6 +1,6 @@
 # BeanHub - UniPA Coffee App ☕
 
-This project is the first assignment for the Web System Design course at the University of Palermo (UniPA).
+This project is the first assignment for the Web System Design and Architecture (25/26) course at the University of Palermo (UniPA).
 It is a web application built with **Spring Boot** and **Thymeleaf**, laying the groundwork for a smart coffee vending machine management platform.
 
 The application is designed to handle 4 different user roles, each with its own dedicated interface and functionalities.
