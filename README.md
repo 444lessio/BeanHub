@@ -5,6 +5,17 @@ It is a web application built with **Spring Boot** and **Thymeleaf**, laying the
 
 The application is designed to handle 4 different user roles, each with its own dedicated interface and functionalities.
 
+
+---
+
+## 📌 Assignment 1 Context
+
+Please note that this repository currently contains the solution for **Assignment 1**.
+
+As per the assignment requirements, the primary goal was to build the **static frontend structure** (UI/UX) using Spring Boot and Thymeleaf. All backend logic—such as database connections, user authentication, and dynamic data processing—is **intentionally not implemented** at this stage.
+
+All data displayed in the app is **mock/static** and used as a placeholder for future development in subsequent assignments.
+
 ---
 
 ## 🚀 How to Run the Project
