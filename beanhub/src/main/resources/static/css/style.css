@@ -19,6 +19,43 @@ body {
 
 }
 
+body.login-page,
+body.customer-dashboard{
+    background: radial-gradient(circle, #ffffff 0%, #f0f2f5 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-page .card{
+    max-width: 420px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.login-page .card h2{
+    text-align: center;
+    color:  #333;
+    margin-bottom:  2rem;
+}
+
+.login-page p{
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.login-page .signup-link{
+    color: var(--primary-color, #007bff);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.login-page .signup-link:hover{
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
 
 /*Principal Container (for login, sections, etc)*/
 

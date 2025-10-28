@@ -6,7 +6,7 @@
     <title th:text = "#{customer.signup.title}">Customer Signup</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
+<body class="login-page">
 
     <div style="text-align: right; padding: 10px; position: absolute; top: 10px; right: 20px; z-index: 100;">
         <a th:href="@{?lang=it}" style="text-decoration: none; font-weight: bold;" th:text="#{lang.it}">🇮🇹 IT</a>
@@ -33,7 +33,7 @@
         </form>
         <p style="text-align: center; margin-top: 15px;" th:inline = "text">
             [[#{customer.signup.login_prompt}]]
-            <a th:href="@{/}" th:text = "#{customer.signup.login_action}">Login</a>
+            <a th:href="@{/}" th:text = "#{customer.signup.login_action}" class="signup-link">Login</a>
         </p>
     </div>
 
