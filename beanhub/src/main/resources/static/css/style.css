@@ -159,7 +159,7 @@ table {
 
 th, td {
     border: 1px solid #ddd;
-    padding: 12px;
+    padding: 11px;
     text-align: left;
 }
 
@@ -171,7 +171,7 @@ th {
 td button {
     width: auto;
     padding: 6px 10px;
-    font-size: 14px;
+    font-size: 13px;
     margin-right: 5px;
 }
 

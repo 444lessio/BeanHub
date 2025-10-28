@@ -1,25 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text = "#{login.title}">Manager Login</title>
+    <title th:text = "#{manager.login.title}">Manager Login</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
+    <div style="text-align: right; padding: 10px; position: absolute; top: 10px; right: 20px; z-index: 100;">
+        <a th:href="@{?lang=it}" style="text-decoration: none; font-weight: bold;" th:text="#{lang.it}">🇮🇹 IT</a>
+        <span style="color: #333;">|</span>
+        <a th:href="@{?lang=en}" style="text-decoration: none; font-weight: bold;" th:text="#{lang.en}">🇬🇧 EN</a>
+    </div>
+
     <div class="card">
-        <h2 th:text = "#{login.title}">System Manager Login</h2>
+        <h2 th:text = "#{manager.login.title}">System Manager Login</h2>
         <form th:action="@{/System_manager/dashboard}" method="get">
             <div class="form-group">
-                <label for="username" th:text = "#{login.username}">Username</label>
+                <label for="username" th:text = "#{manager.login.username}">Username</label>
                 <input type="text" id="username" name="username" required>
             </div>
             <div class="form-group">
-                <label for="password" th:text = "#{login.password}">Password</label>
+                <label for="password" th:text = "#{manager.login.password}">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" th:text = "#{login.button}">Login</button>
+            <button type="submit" th:text = "#{manager.login.button}">Login</button>
         </form>
     </div>
 

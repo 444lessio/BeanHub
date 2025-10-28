@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,10 +23,10 @@
         </div>
 
         <div class="card">
-            <h4 th:text = "#{custoemr.main.header}">Connect you with a distributor</h4>
+            <h4 th:text = "#{customer.main.connect_header}">Connect you with a distributor</h4>
             <div class="form-group">
                 <label for="dist-id" th:text = "#{customer.main.connect_label}">ID distributor</label>
-                <input type="text" id="dist-id" th:placeholder="#{customer.main.conncet_placeholder}">
+                <input type="text" id="dist-id" th:placeholder="#{customer.main.connect_placeholder}">
             </div>
             <button type = "submit" th:text = "#{customer.main.connect_button}">Connect</button>
             <button style="background-color: #6c757d; margin-top: 10px;" th:text = "#{customer.main.disconnect_button}">Get out</button>
