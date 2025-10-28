@@ -8,11 +8,36 @@
 </head>
 <body class="customer-dashboard">
 
-    <div style="text-align: right; padding: 10px; position: absolute; top: 10px; right: 20px; z-index: 100;">
-        <a th:href="@{?lang=it}" style="text-decoration: none; font-weight: bold;" th:text="#{lang.it}">🇮🇹 IT</a>
-        <span style="color: #333;">|</span>
-        <a th:href="@{?lang=en}" style="text-decoration: none; font-weight: bold;" th:text="#{lang.en}">🇬🇧 EN</a>
-    </div>
+    <script th:src="@{/js/main.js}"></script>
+
+    <div class="language-switcher">
+    
+    <th:block th:with="currentLang=${#locale.language}">
+        
+        <button onclick="toggleLangDropdown()" class="dropdown-toggle">
+            
+            <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
+            <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" th:unless="${currentLang == 'it'}">
+            
+            <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
+            <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
+
+            <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
+        </button>
+        
+        <div id="lang-dropdown" class="dropdown-content">
+            <a th:href="@{?lang=en}">
+                <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
+                <span th:text="#{lang.en}">EN</span>
+            </a>
+            <a th:href="@{?lang=it}">
+                <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
+                <span th:text="#{lang.it}">IT</span>
+            </a>
+        </div>
+        
+    </th:block>
+</div>
 
     <div style="width: 100%; max-width: 600px;">
 

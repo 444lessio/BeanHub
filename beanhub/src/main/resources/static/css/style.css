@@ -227,3 +227,73 @@ button.toggle {
 button.toggle:hover {
     background-color: #e0a800;
 }
+
+
+/* --- languages Menu --- */
+
+.language-switcher {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+
+.dropdown-toggle {
+    background-color: #ffffff; 
+    color: #333;
+    padding: 8px 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: 1px solid #ddd; 
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex; 
+    align-items: center;
+    gap: 8px; 
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-toggle:hover {
+    background-color: #f9f9f9;
+}
+
+.dropdown-content {
+    
+    display: none; 
+    position: absolute; 
+    right: 0;
+    top: 100%; 
+    margin-top: 5px;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border-radius: 6px;
+    overflow: hidden; 
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex; 
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.language-switcher img {
+    width: 16px; 
+    height: 12px;
+    
+    vertical-align: middle; 
+    border: 1px solid #eee; 
+}
