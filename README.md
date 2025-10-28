@@ -51,6 +51,7 @@ To run the application locally on your computer:
 * **HTML5** & **CSS3**
 * **Maven** (for dependency management and build)
 * **XML/XSD** (for data structure definition)
+* * **JavaScript**
 
 ---
 
