@@ -3,36 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Area</title>
+    <title th:text = "#{customer.main.title}">Customer Area</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
+    <div style="text-align: right; padding: 10px; position: absolute; top: 10px; right: 20px; z-index: 100;">
+        <a th:href="@{?lang=it}" style="text-decoration: none; font-weight: bold;" th:text="#{lang.it}">🇮🇹 IT</a>
+        <span style="color: #333;">|</span>
+        <a th:href="@{?lang=en}" style="text-decoration: none; font-weight: bold;" th:text="#{lang.en}">🇬🇧 EN</a>
+    </div>
+
     <div style="width: 100%; max-width: 600px;">
         
         <div class="card">
-            <h3>Hi! Alessio Alduina</h3>
-            <p style="font-size: 1.2rem; margin-top: 5px;">Credit: € 5.00</p>
-            <a th:href="@{/}" style="color: #dc3545; text-decoration: none; margin-top: 10px; display: inline-block;">Logout</a>
+            <h3 th:text = "#{customer.main.welcome}">Hi! Alessio Alduina</h3>
+            <p style="font-size: 1.2rem; margin-top: 5px;" th:text = "#{customer.main.credit}">Credit: € 5.00</p>
+            <a th:href="@{/}" style="color: #dc3545; text-decoration: none; margin-top: 10px; display: inline-block;" th:text = "#{customer.main.logout}">Logout</a>
         </div>
 
         <div class="card">
-            <h4>Connect you with a distributor</h4>
+            <h4 th:text = "#{custoemr.main.header}">Connect you with a distributor</h4>
             <div class="form-group">
-                <label for="dist-id">ID distributor</label>
-                <input type="text" id="dist-id" placeholder="Es. D-123">
+                <label for="dist-id" th:text = "#{customer.main.connect_label}">ID distributor</label>
+                <input type="text" id="dist-id" th:placeholder="#{customer.main.conncet_placeholder}">
             </div>
-            <button>Connect</button>
-            <button style="background-color: #6c757d; margin-top: 10px;">Get out</button>
+            <button type = "submit" th:text = "#{customer.main.connect_button}">Connect</button>
+            <button style="background-color: #6c757d; margin-top: 10px;" th:text = "#{customer.main.disconnect_button}">Get out</button>
         </div>
 
         <div class="card">
-            <h4>Recharge your credit</h4>
+            <h4 th:text = "#{customer.main.topup_header}">Recharge your credit</h4>
             <div class="form-group">
-                <label for="amount"> Amount (€)</label>
-                <input type="number" id="amount" min="1" step="0.50" placeholder="10.00">
+                <label for="amount" th:text = "#{customer.main.topup_label}"> Amount (€)</label>
+                <input type="number" id="amount" min="1" step="0.50" th:placeholder="#{customer.main.topup_placeholder}">
             </div>
-            <button>Pay and Recharge</button>
+            <button th:text = "#{customer.main.topup_button}">Pay and Recharge</button>
         </div>
 
     </div>

@@ -3,77 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Machines Management</title>
+    <title th:text = "#{manager.machines.title}">Machines Management</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
+    <div style="text-align: right; padding: 10px; position: absolute; top: 10px; right: 20px; z-index: 100;">
+        <a th:href="@{?lang=it}" style="text-decoration: none; font-weight: bold;" th:text="#{lang.it}">🇮🇹 IT</a>
+        <span style="color: #333;">|</span>
+        <a th:href="@{?lang=en}" style="text-decoration: none; font-weight: bold;" th:text="#{lang.en}">🇬🇧 EN</a>
+    </div>
+
     <div class="dashboard-container">
         <nav class="sidebar">
-            <h3>Management</h3>
-            <a th:href="@{/System_manager/dashboard}">Dashboard</a>
-            <a th:href="@{/System_manager/machines}" style="background-color: #f0f2f5;">Machines Management</a>
-            <a th:href="@{/System_manager/attendants}">Attendants Management</a>
-            <a th:href="@{/System_manager/login}" style="color: #dc3545; margin-top: 20px;">Logout</a>
+            <h3 th:text = "#{manager.menu.header}">Management</h3>
+            <a th:href="@{/System_manager/dashboard}" th:text = "#{manager.menu.dashboard}">Dashboard</a>
+            <a th:href="@{/System_manager/machines}" style="background-color: #f0f2f5;" th:text = "#{manager.menu.machines}">Machines Management</a>
+            <a th:href="@{/System_manager/attendants}" th:text = "#{manager.menu.attendants}">Attendants Management</a>
+            <a th:href="@{/System_manager/login}" style="color: #dc3545; margin-top: 20px;" th:text = "#{manager.menu.logout}">Logout</a>
         </nav>
 
         <main class="content">
             <div class="card">
-                <h3>Add new Distributor</h3>
+                <h3 th:text = "#{manager.machines.add_header}">Add new Distributor</h3>
                 <form th:action="@{/System_manager/machines}" method="get">
                     <div class="form-group">
-                        <label for="new-id">Distributor ID</label>
-                        <input type="text" id="new-id" placeholder="Online">
+                        <label for="new-id" th:text = "#{manager.machines.add_id_label}">Distributor ID</label>
+                        <input type="text" id="new-id" th:placeholder="#{manager.machines.add_id_label}">
                     </div>
                     <div class="form-group">
-                        <label for="new-pos">Position</label>
-                        <input type="text" id="new-pos" placeholder="Edificio 6, Piano 3">
+                        <label for="new-pos" th:text = "#{manager.machines.add_pos_label}">Position</label>
+                        <input type="text" id="new-pos" th:placeholder="#{manager.machines.add_pos_placeholder}">
                     </div>
-                    <button type="submit">Add machine</button>
+                    <button type="submit" th:text = "#{manager.machines.add_button}">Add machine</button>
                 </form>
             </div>
 
             <div class="card">
-                <h3>Distributor Status and Management</h3>
+                <h3 th:text = "#{manager.table.id}">Distributor Status and Management</h3>
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Position</th>
-                            <th>Status</th>
-                            <th>Faults</th>
-                            <th>Actions</th>
+                            <th th:text="#{manager.table.id}">ID</th>
+                            <th th:text="#{manager.table.position}">Position</th>
+                            <th th:text="#{manager.table.status}">Status</th>
+                            <th th:text="#{manager.table.faults}">Faults</th>
+                            <th th:text="#{manager.table.actions}">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>A001</td>
                             <td>Edificio 6</td>
-                            <td style="color: green;">Active</td>
-                            <td>Nessuno</td>
+                            <td style="color: green;" th:text = "#{manager.status.active}">Active</td>
+                            <td th:text = "#{manager.faults.none}">None</td>
                             <td>
-                                <button class="toggle">Turn-off</button>
-                                <button class="remove">Remove</button>
+                                <button class="toggle" th:text = "#{manager.action.turnoff}">Turn-off</button>
+                                <button class="remove" th:text = "#{manager.action.remove}">Remove</button>
                             </td>
                         </tr>
                         <tr>
                             <td>A002</td>
                             <td>Edificio 7</td>
-                            <td style="color: #ffc107;">Maintenance</td>
+                            <td style="color: #ffc107;" th:text = "#{manager.status.maintenance}">Maintenance</td>
                             <td>E-05</td>
                             <td>
-                                <button class="toggle">Active</button>
-                                <button class="remove">Remove</button>
+                                <button class="toggle" th:text = "#{manager.action.activate}">Active</button>
+                                <button class="remove" th:text = "#{manager.action.remove}">Remove</button>
                             </td>
                         </tr>
                         <tr>
                             <td>A003</td>
                             <td>Library</td>
-                            <td style="color: red;">Offline</td>
+                            <td style="color: red;" th:text = "#{manager.status.offline}">Offline</td>
                             <td>P-00</td>
                             <td>
-                                <button class="toggle">Active</button>
-                                <button class="remove">Remove</button>
+                                <button class="toggle" th:text = "#{manager.action.activate}">Active</button>
+                                <button class="remove" th:text = "#{manager.action.remove}">Remove</button>
                             </td>
                         </tr>
                     </tbody>

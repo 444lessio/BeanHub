@@ -3,29 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Signup</title>
+    <title th:text = "#{customer.signup.title}">Customer Signup</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
+    <div style="text-align: right; padding: 10px; position: absolute; top: 10px; right: 20px; z-index: 100;">
+        <a th:href="@{?lang=it}" style="text-decoration: none; font-weight: bold;" th:text="#{lang.it}">🇮🇹 IT</a>
+        <span style="color: #333;">|</span>
+        <a th:href="@{?lang=en}" style="text-decoration: none; font-weight: bold;" th:text="#{lang.en}">🇬🇧 EN</a>
+    </div>
+
     <div class="card">
-        <h2>Signup a new account</h2>
+        <h2 th:text = "#{customer.signup.header}">Signup a new account</h2>
+
         <form th:action="@{/}" method="get"> <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name" th:text = "#{customer.signup.name}">Name</label>
                 <input type="text" id="name" name="name" required>
             </div>
             <div class="form-group">
-                <label for="email">Email</label>
+                <label for="email" th:text = "#{customer.signup.email}">Email</label>
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password" th:text = "#{customer.signup.password}">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit">Signup</button>
+            <button type="submit" th:text = "#{customer.signup.button}">Signup</button>
         </form>
-        <p style="text-align: center; margin-top: 15px;">
-            You have already an account? <a th:href="@{/}">Login</a>
+        <p style="text-align: center; margin-top: 15px;" th:inline = "text">
+            [[#{customer.signup.login_prompt}]]
+            <a th:href="@{/}" th:text = "#{customer.signup.login_action}">Login</a>
         </p>
     </div>
 

@@ -3,34 +3,40 @@
 <head>
     <meta charset = "ITF-8">
     <meta name = "viewport" content = "width=device-width, inital-scale=1.0">
-    <title>Coffee Distributor</title>
+    <title th:text = "#{distributor.title}">Coffee Distributor</title>
     <link rel ="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
+    <div style="text-align: right; padding: 10px; position: absolute; top: 10px; right: 20px; z-index: 100;">
+        <a th:href="@{?lang=it}" style="text-decoration: none; font-weight: bold;" th:text="#{lang.it}">🇮🇹 IT</a>
+        <span style="color: #333;">|</span>
+        <a th:href="@{?lang=en}" style="text-decoration: none; font-weight: bold;" th:text="#{lang.en}">🇬🇧 EN</a>
+    </div>
+
     <div class="card distributor-container">
         <div class="distributor-header">
-            <h3>User: Alessio Alduina</h3>
-            <p>Credit: € 2.50</p>
+            <h3 th:text = "#{distributor.user}">User: Alessio Alduina</h3>
+            <p th:text = "#{distributor.credit}">Credit: € 2.50</p>
         </div>
 
         <div class="drinks-grid">
-            <button>Espresso Coffee</button>
-            <button>American Coffee</button>
-            <button>Cappuccino</button>
-            <button>Chocolate</button>
-            <button>Lemon Thè</button>
-            <button>Macchiato Milk</button>
+            <button th:text="#{distributor.drink.coffee}">Espresso Coffee</button>
+            <button th:text="#{distributor.drink.long_coffee}">American Coffee</button>
+            <button th:text="#{distributor.drink.cappuccino}">Cappuccino</button>
+            <button th:text="#{distributor.drink.chocolate}">Chocolate</button>
+            <button th:text="#{distributor.drink.tea}">Lemon Thè</button>
+            <button th:text="#{distributor.drink.latte}">Macchiato Milk</button>
         </div>
 
         <div class="sugar-options">
-            <label>Sugar:</label>
+            <label th:text = "#{distributor.sugar.label}">Sugar:</label>
             <input type="range" min="0" max="5" value="2" step="1">
-            <span>Medium</span>
+            <span th:text = "#{distributor.sugar.value}">Medium</span>
         </div>
 
-        <button id="purchase">Dispensa Drink</button>
+        <button id="purchase" th:text = "#{distributor.button.buy}">Dispensa Drink</button>
     </div>
 </body>
 </html>
