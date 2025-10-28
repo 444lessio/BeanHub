@@ -2,7 +2,7 @@
 <Globalstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:noNamespaceSchemaLocation="Machines_status.xsd">
   
-  <distributor id="Online" state="active">
+  <distributor id="A001" state="active">
     <position>Building 19, Floor</position>
     <supply>
       <coffee>85</coffee>
@@ -14,7 +14,7 @@
       </faults>
   </distributor>
   
-  <distributor id="Offline" state="maintenance">
+  <distributor id="A002" state="maintenance">
     <position>Building 7, Aula 3.1</position>
     <supply>
       <coffee>10</coffee>
@@ -28,7 +28,7 @@
     </faults>
   </distributor>
   
-  <distributor id="Offline" state="offline">
+  <distributor id="A003" state="offline">
     <position>Library,  Study Area</position>
     <supply>
       <coffee>0</coffee>
