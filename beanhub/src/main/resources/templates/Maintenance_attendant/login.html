@@ -3,56 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text = "#{attendant.login.title}">Attendant Login</title>
+    <title th:text="#{attendant.login.title}">Attendant Login</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body class="login-page">
 
-    <script th:src="@{/js/main.js}"></script>
+    <div class="language-switcher">
+        <th:block th:with="currentLang=${#locale.language}">
+            <button onclick="toggleLangDropdown()" class="dropdown-toggle">
+                <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
+                <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" th:unless="${currentLang == 'it'}">
+                
+                <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
+                <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
 
-   <div class="language-switcher">
-    
-    <th:block th:with="currentLang=${#locale.language}">
-        
-        <button onclick="toggleLangDropdown()" class="dropdown-toggle">
+                <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
+            </button>
             
-            <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
-            <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" th:unless="${currentLang == 'it'}">
-            
-            <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
-            <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
-
-            <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
-        </button>
-        
-        <div id="lang-dropdown" class="dropdown-content">
-            <a th:href="@{?lang=en}">
-                <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
-                <span th:text="#{lang.en}">EN</span>
-            </a>
-            <a th:href="@{?lang=it}">
-                <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
-                <span th:text="#{lang.it}">IT</span>
-            </a>
-        </div>
-        
-    </th:block>
-</div>
+            <div id="lang-dropdown" class="dropdown-content">
+                <a th:href="@{?lang=en}">
+                    <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
+                    <span th:text="#{lang.en}">EN</span>
+                </a>
+                <a th:href="@{?lang=it}">
+                    <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
+                    <span th:text="#{lang.it}">IT</span>
+                </a>
+            </div>
+        </th:block>
+    </div>
 
     <div class="card">
-        <h2 th:text = "#{attendant.login.header}">Maintenance Attendant Login</h2>
+        <h2 th:text="#{attendant.login.header}">Maintenance Attendant Login</h2>
+        
         <form th:action="@{/attendant/main}" method="get">
             <div class="form-group">
-                <label for="attendant-id" th:text = "#{attendant.login.id}">Attendant ID</label>
+                <label for="attendant-id" th:text="#{attendant.login.id}">Attendant ID</label>
                 <input type="text" id="attendant-id" name="attendant-id" required>
             </div>
             <div class="form-group">
-                <label for="password" th:text = "#{attendant.login.password}">Password</label>
+                <label for="password" th:text="#{attendant.login.password}">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" th:text = "#{attendant.login.button}">Login</button>
+            <button type="submit" th:text="#{attendant.login.button}">Login</button>
         </form>
     </div>
+
+    <script th:src="@{/js/main.js}"></script>
 
 </body>
 </html>

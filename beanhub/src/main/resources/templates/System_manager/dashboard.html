@@ -3,58 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text ="#{manager.dashboard.title}">Manager Dashboard</title>
+    <title th:text="#{manager.dashboard.title}">Manager Dashboard</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-    <script th:src="@{/js/main.js}"></script>
-
     <div class="language-switcher">
-    
-    <th:block th:with="currentLang=${#locale.language}">
-        
-        <button onclick="toggleLangDropdown()" class="dropdown-toggle">
-            
-            <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
-            <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" th:unless="${currentLang == 'it'}">
-            
-            <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
-            <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
-
-            <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
-        </button>
-        
-        <div id="lang-dropdown" class="dropdown-content">
-            <a th:href="@{?lang=en}">
-                <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
-                <span th:text="#{lang.en}">EN</span>
-            </a>
-            <a th:href="@{?lang=it}">
-                <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
-                <span th:text="#{lang.it}">IT</span>
-            </a>
-        </div>
-        
-    </th:block>
-</div>
+        <th:block th:with="currentLang=${#locale.language}">
+            <button onclick="toggleLangDropdown()" class="dropdown-toggle">
+                <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
+                <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" th:unless="${currentLang == 'it'}">
+                <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
+                <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
+                <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
+            </button>
+            <div id="lang-dropdown" class="dropdown-content">
+                <a th:href="@{?lang=en}">
+                    <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
+                    <span th:text="#{lang.en}">EN</span>
+                </a>
+                <a th:href="@{?lang=it}">
+                    <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
+                    <span th:text="#{lang.it}">IT</span>
+                </a>
+            </div>
+        </th:block>
+    </div>
 
     <div class="dashboard-container">
         <nav class="sidebar">
-            <h3 th:text = "#{manager.menu.header}">Management</h3>
-            <a th:href="@{/System_manager/dashboard}" style="background-color: #f0f2f5;" th:text = "#{manager.menu.dashboard}">Dashboard</a>
-            <a th:href="@{/System_manager/machines}" th:text = "#{manager.menu.machines}">Machines Management</a>
-            <a th:href="@{/System_manager/attendants}" th:text = "#{manager.menu.attendants}">Attendants Management</a>
-            <a th:href="@{/System_manager/login}" style="color: #dc3545; margin-top: 20px;" th:text = "#{manager.menu.logout}">Logout</a>
+            <h3 th:text="#{manager.menu.header}">Management</h3>
+            <a th:href="@{/System_manager/dashboard}" style="background-color: #f0f2f5;" th:text="#{manager.menu.dashboard}">Dashboard</a>
+            <a th:href="@{/System_manager/machines}" th:text="#{manager.menu.machines}">Machines Management</a>
+            <a th:href="@{/System_manager/attendants}" th:text="#{manager.menu.attendants}">Attendants Management</a>
+            <a th:href="@{/System_manager/login}" style="color: #dc3545; margin-top: 20px;" th:text="#{manager.menu.logout}">Logout</a>
         </nav>
 
         <main class="content">
             <div class="card">
-                <h2 th:text = "#{manager.dashboard.welcome_header}">Welcome Manager!</h2>
-                <p th:text = "#{manager.dashboard.welcome_text}">Select an item from the menu on the left to get started.</p>
+                <h2 th:text="#{manager.dashboard.welcome_header}">Welcome Manager!</h2>
+                <p th:text="#{manager.dashboard.welcome_text}">Select an item from the menu on the left to get started.</p>
             </div>
         </main>
     </div>
+
+    <script th:src="@{/js/main.js}"></script>
 
 </body>
 </html>

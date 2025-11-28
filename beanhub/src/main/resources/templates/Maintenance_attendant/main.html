@@ -3,67 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text = "#{attendant.main.title}">Attendant Panel </title>
+    <title th:text="#{attendant.main.title}">Attendant Panel</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body class="customer-dashboard">
 
-    <script th:src="@{/js/main.js}"></script>
-
     <div class="language-switcher">
-    
-    <th:block th:with="currentLang=${#locale.language}">
-        
-        <button onclick="toggleLangDropdown()" class="dropdown-toggle">
-            
-            <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
-            <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" th:unless="${currentLang == 'it'}">
-            
-            <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
-            <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
-
-            <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
-        </button>
-        
-        <div id="lang-dropdown" class="dropdown-content">
-            <a th:href="@{?lang=en}">
-                <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
-                <span th:text="#{lang.en}">EN</span>
-            </a>
-            <a th:href="@{?lang=it}">
-                <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
-                <span th:text="#{lang.it}">IT</span>
-            </a>
-        </div>
-        
-    </th:block>
-</div>
+        <th:block th:with="currentLang=${#locale.language}">
+            <button onclick="toggleLangDropdown()" class="dropdown-toggle">
+                <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
+                <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" th:unless="${currentLang == 'it'}">
+                <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
+                <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
+                <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
+            </button>
+            <div id="lang-dropdown" class="dropdown-content">
+                <a th:href="@{?lang=en}">
+                    <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
+                    <span th:text="#{lang.en}">EN</span>
+                </a>
+                <a th:href="@{?lang=it}">
+                    <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
+                    <span th:text="#{lang.it}">IT</span>
+                </a>
+            </div>
+        </th:block>
+    </div>
 
     <div style="width: 100%; max-width: 600px;">
 
         <div class="card">
-            <h3 th:text = "#{attendant.main.header}">Distributor State Control</h3>
-            <div class="form-group">
-                <label for="dist-id" th:text = "#{attendant.main.label}">Insert attendant-id</label>
-                <input type="text" id="dist-id" th:placeholder="#{attendant.main.placeholder}">
-            </div>
-            <button type = "submit" th:text = "#{attendant.main.button}">Upload State</button>
-            <a th:href=@{/attendant/login} style="color: #dc3545; text-decoration: none; margin-top: 20px; text-align: center; display: block;">Logout</a>
+            <h3 th:text="#{attendant.main.header}">Distributor State Control</h3>
+
+            <form id="search-form">
+                <div class="form-group">
+                    <label for="dist-id-input" th:text="#{attendant.main.label}">Insert attendant-id</label>
+                    <input type="text" id="dist-id-input" name="dist-id" th:placeholder="#{attendant.main.placeholder}">
+                </div>
+                <button type="button" id="btn-load" th:text="#{attendant.main.button}">Upload State</button>
+            </form>
+            
+            <a th:href="@{/attendant/login}" style="color: #dc3545; text-decoration: none; margin-top: 20px; text-align: center; display: block;" th:text="#{attendant.main.logout}">Logout</a>
         </div>
 
-        <div class="card" id="results-status">
-            <h4>Distributor state: Online</h4>
+        <div class="card" id="results-card" style="display: none;">
+            <h4 id="result-header">Distributor state: ...</h4>
+            
             <ul style="list-style-position: inside; margin-top: 15px; font-size: 1.1rem; line-height: 1.6;">
-                <li th:inline="text">[[#{attendant.main.status.coffee}]] <span style="font-weight: 600;">80%</span></li>
-                <li th:inline="text">[[#{attendant.main.status.cups}]] <span style="font-weight: 600;">55%</span></li>
-                <li th:inline="text">[[#{attendant.main.status.sugar}]] <span style="font-weight: 600;">70%</span></li>
-                <li th:inline="text">
-                    [[#{attendant.main.status.faults}]] 
-                    <span style="color: #dc3545; font-weight: 600;" th:text="#{attendant.main.status.faults_value}">Coin block (E-05)</span>
+                <li>
+                    <span th:text="#{attendant.main.status.coffee}">Coffee:</span> 
+                    <span id="val-coffee" style="font-weight: 600;">-</span>%
+                </li>
+                <li>
+                    <span th:text="#{attendant.main.status.cups}">Cups:</span> 
+                    <span id="val-cups" style="font-weight: 600;">-</span>%
+                </li>
+                <li>
+                    <span th:text="#{attendant.main.status.sugar}">Sugar:</span> 
+                    <span id="val-sugar" style="font-weight: 600;">-</span>%
+                </li>
+                <li>
+                    <span th:text="#{attendant.main.status.faults}">Faults:</span> 
+                    <span id="val-faults" style="color: #dc3545; font-weight: 600;">-</span>
                 </li>
             </ul>
         </div>
 
     </div>
+
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/attendant.js}"></script>
+
 </body>
 </html>

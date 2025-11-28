@@ -3,70 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text = "#{customer.main.title}">Customer Area</title>
+    <title th:text="#{customer.main.title}">Customer Area</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body class="customer-dashboard">
 
-    <script th:src="@{/js/main.js}"></script>
-
     <div class="language-switcher">
-    
-    <th:block th:with="currentLang=${#locale.language}">
-        
-        <button onclick="toggleLangDropdown()" class="dropdown-toggle">
-            
-            <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
-            <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" th:unless="${currentLang == 'it'}">
-            
-            <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
-            <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
-
-            <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
-        </button>
-        
-        <div id="lang-dropdown" class="dropdown-content">
-            <a th:href="@{?lang=en}">
-                <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
-                <span th:text="#{lang.en}">EN</span>
-            </a>
-            <a th:href="@{?lang=it}">
-                <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
-                <span th:text="#{lang.it}">IT</span>
-            </a>
-        </div>
-        
-    </th:block>
-</div>
+        <th:block th:with="currentLang=${#locale.language}">
+            <button onclick="toggleLangDropdown()" class="dropdown-toggle">
+                <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
+                <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" th:unless="${currentLang == 'it'}">
+                <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
+                <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
+                <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
+            </button>
+            <div id="lang-dropdown" class="dropdown-content">
+                <a th:href="@{?lang=en}">
+                    <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
+                    <span th:text="#{lang.en}">EN</span>
+                </a>
+                <a th:href="@{?lang=it}">
+                    <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
+                    <span th:text="#{lang.it}">IT</span>
+                </a>
+            </div>
+        </th:block>
+    </div>
 
     <div style="width: 100%; max-width: 600px;">
         
         <div class="card">
-            <h3 th:text = "#{customer.main.welcome}">Hi! Alessio Alduina</h3>
-            <p style="font-size: 1.2rem; margin-top: 5px;" th:text = "#{customer.main.credit}">Credit: € 5.00</p>
-            <a th:href="@{/}" style="color: #dc3545; text-decoration: none; margin-top: 10px; display: inline-block;" th:text = "#{customer.main.logout}">Logout</a>
+            <h3 id="welcome-msg" th:text="#{customer.main.welcome}">Hi! Alessio Alduina</h3>
+            <p style="font-size: 1.2rem; margin-top: 5px;">
+                <span th:text="#{customer.main.credit}">Credit:</span>
+                <span id="user-credit">€ 0.00</span>
+            </p>
+            <a th:href="@{/}" style="color: #dc3545; text-decoration: none; margin-top: 10px; display: inline-block;" th:text="#{customer.main.logout}">Logout</a>
         </div>
 
         <div class="card">
-            <h4 th:text = "#{customer.main.connect_header}">Connect you with a distributor</h4>
-            <div class="form-group">
-                <label for="dist-id" th:text = "#{customer.main.connect_label}">ID distributor</label>
-                <input type="text" id="dist-id" th:placeholder="#{customer.main.connect_placeholder}">
-            </div>
-            <button type = "submit" th:text = "#{customer.main.connect_button}">Connect</button>
-            <button style="background-color: #6c757d; margin-top: 10px;" th:text = "#{customer.main.disconnect_button}">Get out</button>
+            <h4 th:text="#{customer.main.connect_header}">Connect you with a distributor</h4>
+            <form id="connect-form">
+                <div class="form-group">
+                    <label for="dist-id-input" th:text="#{customer.main.connect_label}">ID distributor</label>
+                    <input type="text" id="dist-id-input" th:placeholder="#{customer.main.connect_placeholder}">
+                </div>
+                <button type="button" id="btn-connect" th:text="#{customer.main.connect_button}">Connect</button>
+            </form>
+            <button type="button" id="btn-disconnect" style="background-color: #6c757d; margin-top: 10px;" th:text="#{customer.main.disconnect_button}">Get out</button>
         </div>
 
         <div class="card">
-            <h4 th:text = "#{customer.main.topup_header}">Recharge your credit</h4>
-            <div class="form-group">
-                <label for="amount" th:text = "#{customer.main.topup_label}"> Amount (€)</label>
-                <input type="number" id="amount" min="1" step="0.50" th:placeholder="#{customer.main.topup_placeholder}">
-            </div>
-            <button th:text = "#{customer.main.topup_button}">Pay and Recharge</button>
+            <h4 th:text="#{customer.main.topup_header}">Recharge your credit</h4>
+            <form id="topup-form">
+                <div class="form-group">
+                    <label for="topup-amount" th:text="#{customer.main.topup_label}"> Amount (€)</label>
+                    <input type="number" id="topup-amount" min="1" step="0.50" th:placeholder="#{customer.main.topup_placeholder}">
+                </div>
+                <button type="button" id="btn-topup" th:text="#{customer.main.topup_button}">Pay and Recharge</button>
+            </form>
         </div>
 
     </div>
+
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/customer.js}"></script> 
 
 </body>
 </html>

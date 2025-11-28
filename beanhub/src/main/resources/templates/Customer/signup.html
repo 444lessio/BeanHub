@@ -3,64 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text = "#{customer.signup.title}">Customer Signup</title>
+    <title th:text="#{customer.signup.title}">Customer Signup</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body class="login-page">
 
-    <script th:src="@{/js/main.js}"></script>
+    <div class="language-switcher">
+        <th:block th:with="currentLang=${#locale.language}">
+            <button onclick="toggleLangDropdown()" class="dropdown-toggle">
+                <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
+                <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" th:unless="${currentLang == 'it'}">
+                
+                <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
+                <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
 
-   <div class="language-switcher">
-    
-    <th:block th:with="currentLang=${#locale.language}">
-        
-        <button onclick="toggleLangDropdown()" class="dropdown-toggle">
+                <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
+            </button>
             
-            <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
-            <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" th:unless="${currentLang == 'it'}">
-            
-            <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
-            <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
-
-            <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
-        </button>
-        
-        <div id="lang-dropdown" class="dropdown-content">
-            <a th:href="@{?lang=en}">
-                <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
-                <span th:text="#{lang.en}">EN</span>
-            </a>
-            <a th:href="@{?lang=it}">
-                <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
-                <span th:text="#{lang.it}">IT</span>
-            </a>
-        </div>
-        
-    </th:block>
-</div>
+            <div id="lang-dropdown" class="dropdown-content">
+                <a th:href="@{?lang=en}">
+                    <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
+                    <span th:text="#{lang.en}">EN</span>
+                </a>
+                <a th:href="@{?lang=it}">
+                    <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
+                    <span th:text="#{lang.it}">IT</span>
+                </a>
+            </div>
+        </th:block>
+    </div>
 
     <div class="card">
-        <h2 th:text = "#{customer.signup.header}">Signup a new account</h2>
+        <h2 th:text="#{customer.signup.header}">Signup a new account</h2>
 
-        <form th:action="@{/}" method="get"> <div class="form-group">
-                <label for="name" th:text = "#{customer.signup.name}">Name</label>
+        <form th:action="@{/customer/main}" method="get"> 
+            <div class="form-group">
+                <label for="name" th:text="#{customer.signup.name}">Name</label>
                 <input type="text" id="name" name="name" required>
             </div>
             <div class="form-group">
-                <label for="email" th:text = "#{customer.signup.email}">Email</label>
+                <label for="email" th:text="#{customer.signup.email}">Email</label>
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="password" th:text = "#{customer.signup.password}">Password</label>
+                <label for="password" th:text="#{customer.signup.password}">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" th:text = "#{customer.signup.button}">Signup</button>
+            <button type="submit" th:text="#{customer.signup.button}">Signup</button>
         </form>
-        <p style="text-align: center; margin-top: 15px;" th:inline = "text">
+        
+        <p style="text-align: center; margin-top: 15px;" th:inline="text">
             [[#{customer.signup.login_prompt}]]
-            <a th:href="@{/}" th:text = "#{customer.signup.login_action}" class="signup-link">Login</a>
+            <a th:href="@{/}" th:text="#{customer.signup.login_action}" class="signup-link">Login</a>
         </p>
     </div>
+
+    <script th:src="@{/js/main.js}"></script>
 
 </body>
 </html>

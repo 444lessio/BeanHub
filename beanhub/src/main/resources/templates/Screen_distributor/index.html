@@ -1,67 +1,80 @@
 <!DOCTYPE html>
-<html lang = "en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset = "UTF-8">
-    <meta name = "viewport" content = "width=device-width, inital-scale=1.0">
-    <title th:text = "#{distributor.title}">Coffee Distributor</title>
-    <link rel ="stylesheet" th:href="@{/css/style.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{distributor.title}">Coffee Distributor</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    
+    <style>
+        .distributor-header h3, 
+        .distributor-header p {
+            color: #333 !important;
+            margin-bottom: 0.5rem;
+        }
+    </style>
 </head>
 
 <body>
 
-    <script th:src="@{/js/main.js}"></script>
-
     <div class="language-switcher">
-    
-    <th:block th:with="currentLang=${#locale.language}">
-        
-        <button onclick="toggleLangDropdown()" class="dropdown-toggle">
-            
-            <span th:if="${currentLang == 'it'}">🇮🇹</span>
-            <span th:unless="${currentLang == 'it'}">🇬🇧</span>
-            
-            <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
-            <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
+        <th:block th:with="currentLang=${#locale.language}">
+            <button onclick="toggleLangDropdown()" class="dropdown-toggle">
+                <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
+                <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" th:unless="${currentLang == 'it'}">
+                
+                <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
+                <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
 
-            <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
-        </button>
-        
-        <div id="lang-dropdown" class="dropdown-content">
-            <a th:href="@{?lang=en}">
-                <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
-                <span th:text="#{lang.en}">EN</span>
-            </a>
-            <a th:href="@{?lang=it}">
-                <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
-                <span th:text="#{lang.it}">IT</span>
-            </a>
-        </div>
-        
-    </th:block>
-</div>
+                <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
+            </button>
+            
+            <div id="lang-dropdown" class="dropdown-content">
+                <a th:href="@{?lang=en}">
+                    <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
+                    <span th:text="#{lang.en}">EN</span>
+                </a>
+                <a th:href="@{?lang=it}">
+                    <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
+                    <span th:text="#{lang.it}">IT</span>
+                </a>
+            </div>
+        </th:block>
+    </div>
 
     <div class="card distributor-container">
         <div class="distributor-header">
-            <h3 th:text = "#{distributor.user}">User: Alessio Alduina</h3>
-            <p th:text = "#{distributor.credit}">Credit: € 2.50</p>
+            <h3>
+                <span th:text="#{distributor.user}">User:</span> 
+                <span id="user-name">Loading...</span>
+            </h3>
+            
+            <p style="font-size: 1.2rem;">
+                <span th:text="#{distributor.credit}">Credit:</span> 
+                <span id="user-credit">€ 0.00</span>
+            </p>
         </div>
 
         <div class="drinks-grid">
-            <button th:text="#{distributor.drink.coffee}">Espresso Coffee</button>
-            <button th:text="#{distributor.drink.long_coffee}">American Coffee</button>
-            <button th:text="#{distributor.drink.cappuccino}">Cappuccino</button>
-            <button th:text="#{distributor.drink.chocolate}">Chocolate</button>
-            <button th:text="#{distributor.drink.tea}">Lemon Thè</button>
-            <button th:text="#{distributor.drink.latte}">Macchiato Milk</button>
+            <button class="drink-btn" data-price="0.50" th:text="#{distributor.drink.coffee}">Espresso Coffee</button>
+            <button class="drink-btn" data-price="0.60" th:text="#{distributor.drink.long_coffee}">American Coffee</button>
+            <button class="drink-btn" data-price="1.20" th:text="#{distributor.drink.cappuccino}">Cappuccino</button>
+            <button class="drink-btn" data-price="1.50" th:text="#{distributor.drink.chocolate}">Chocolate</button>
+            <button class="drink-btn" data-price="0.80" th:text="#{distributor.drink.tea}">Lemon Thè</button>
+            <button class="drink-btn" data-price="1.00" th:text="#{distributor.drink.latte}">Macchiato Milk</button>
         </div>
 
         <div class="sugar-options">
-            <label th:text = "#{distributor.sugar.label}">Sugar:</label>
-            <input type="range" min="0" max="5" value="2" step="1">
-            <span th:text = "#{distributor.sugar.value}">Medium</span>
+            <label th:text="#{distributor.sugar.label}">Sugar:</label>
+            <input type="range" id="sugar-slider" min="0" max="5" value="2" step="1">
+            <span id="sugar-value" th:text="#{distributor.sugar.value}">Medium</span>
         </div>
 
-        <button id="purchase" th:text = "#{distributor.button.buy}">Dispensa Drink</button>
+        <button id="purchase" th:text="#{distributor.button.buy}" style="display:none;">Dispensa Drink</button>
     </div>
+
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/distributor.js}"></script>
+
 </body>
 </html>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AttendantsList>
+    <attendant id="A-001">
+        <name>Lorenzo Patti</name>
+        <email>LollinoPane_e_Vino@coffee.com</email>
+    </attendant>
+    <attendant id="A-002">
+        <name>Antonino Randazzo</name>
+        <email>AntoninoRandazzo@coffee.com</email>
+    </attendant>
+</AttendantsList>

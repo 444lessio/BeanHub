@@ -1,0 +1,7 @@
+{
+    "id": "User-00001",
+    "name": "Alessio Aldiuna",
+    "credit": 5.50,
+    "status": "connected_to_machine",
+    "connectedMachineId": "D-123"
+}

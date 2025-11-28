@@ -1,0 +1,4 @@
+Manutenzione: http://localhost:8080/attendant/login
+Gestore: http://localhost:8080/System_manager/login
+Distributore: http://localhost:8080/distributor
+Cliente: http://localhost:8080/
