@@ -32,39 +32,56 @@
 
     <div style="width: 100%; max-width: 600px;">
         
-        <div class="card">
-            <h3 id="welcome-msg" th:text="#{customer.main.welcome}">Hi! Alessio Alduina</h3>
-            <p style="font-size: 1.2rem; margin-top: 5px;">
-                <span th:text="#{customer.main.credit}">Credit:</span>
-                <span id="user-credit">€ 0.00</span>
-            </p>
-            <a th:href="@{/}" style="color: #dc3545; text-decoration: none; margin-top: 10px; display: inline-block;" th:text="#{customer.main.logout}">Logout</a>
+        <h1>Hi, <span th:text="${username}">User</span>! 👋</h1>
+
+        <div th:if="${param.error != null}" style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #f5c6cb; text-align: center;">
+            <span th:if="${param.error[0] == 'low_credit'}">
+                <b>insufficient credit!</b> Please top up your account.
+            </span>
+            <span th:if="${param.error[0] == 'out_of_stock'}">
+                <b>Product out of stock!</b> The distributor has run out of ingredients.
+            </span>
         </div>
 
+        <div class="credit-card">
+            <h3>Your Credit</h3>
+            <p class="amount" th:text="${#numbers.formatDecimal(credit, 1, 2)} + ' €'">0.00 €</p>
+        </div>
+
+        <div class="actions">
+            <a th:href="@{/customer/logout}" class="btn-logout">Log Out</a>
+        </div>
+
+
         <div class="card">
-            <h4 th:text="#{customer.main.connect_header}">Connect you with a distributor</h4>
-            <form id="connect-form">
-                <div class="form-group">
-                    <label for="dist-id-input" th:text="#{customer.main.connect_label}">ID distributor</label>
-                    <input type="text" id="dist-id-input" th:placeholder="#{customer.main.connect_placeholder}">
-                </div>
-                <button type="button" id="btn-connect" th:text="#{customer.main.connect_button}">Connect</button>
+            <h3>Connect to a distributor</h3>
+    
+            <div th:if="${isConnected}" style="color: green; font-weight: bold; margin-bottom: 10px;">
+                <span th:text="${connectedMsg}"></span>
+            </div>
+
+            <form th:action="@{/customer/connect}" method="post" th:if="${!isConnected}">
+                <label>Distributor ID</label>
+                <input type="text" name="distributorId" placeholder="e.g. D-123" required>
+                <button type="submit" class="btn-blue">Connect</button>
             </form>
-            <button type="button" id="btn-disconnect" style="background-color: #6c757d; margin-top: 10px;" th:text="#{customer.main.disconnect_button}">Get out</button>
+
+            <form th:action="@{/customer/disconnect}" method="post" th:if="${isConnected}">
+                <button type="submit" class="btn-grey">Disconnect</button>
+            </form>
         </div>
 
         <div class="card">
-            <h4 th:text="#{customer.main.topup_header}">Recharge your credit</h4>
-            <form id="topup-form">
-                <div class="form-group">
-                    <label for="topup-amount" th:text="#{customer.main.topup_label}"> Amount (€)</label>
-                    <input type="number" id="topup-amount" min="1" step="0.50" th:placeholder="#{customer.main.topup_placeholder}">
-                </div>
-                <button type="button" id="btn-topup" th:text="#{customer.main.topup_button}">Pay and Recharge</button>
+            <h3>Top up your credit</h3>
+            <form th:action="@{/customer/topup}" method="post">
+                <label>Amount (€)</label>
+                <input type="number" name="amount" step="0.50" min="0.50" placeholder="10.00" required>
+                <button type="submit" class="btn-blue">Pay and Top Up</button>
             </form>
         </div>
 
     </div>
+
 
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/customer.js}"></script> 

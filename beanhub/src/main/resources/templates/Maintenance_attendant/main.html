@@ -3,76 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="#{attendant.main.title}">Attendant Panel</title>
+    <title>Maintenance Panel</title> 
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    
+    <style>
+        .tech-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9em; }
+        .tech-table th, .tech-table td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        .tech-table th { background-color: #f4f4f4; color: #333; font-weight: bold; }
+        .status-active { color: green; font-weight: bold; }
+        .status-broken { color: red; font-weight: bold; }
+        .level-low { color: #d9534f; font-weight: bold; } 
+        .btn-action { padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; color: white; font-size: 0.8em; }
+        .btn-refill { background-color: #17a2b8; }
+        .btn-repair { background-color: #dc3545; }
+        .card { max-width: 800px; margin: 20px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); } 
+        body { background-color: #e9ecef; font-family: sans-serif; }
+    </style>
 </head>
 <body class="customer-dashboard">
 
-    <div class="language-switcher">
-        <th:block th:with="currentLang=${#locale.language}">
-            <button onclick="toggleLangDropdown()" class="dropdown-toggle">
-                <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
-                <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" th:unless="${currentLang == 'it'}">
-                <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
-                <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
-                <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
-            </button>
-            <div id="lang-dropdown" class="dropdown-content">
-                <a th:href="@{?lang=en}">
-                    <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
-                    <span th:text="#{lang.en}">EN</span>
-                </a>
-                <a th:href="@{?lang=it}">
-                    <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
-                    <span th:text="#{lang.it}">IT</span>
-                </a>
-            </div>
-        </th:block>
-    </div>
-
-    <div style="width: 100%; max-width: 600px;">
+    <div style="width: 100%;">
 
         <div class="card">
-            <h3 th:text="#{attendant.main.header}">Distributor State Control</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3>Distributor Control Panel</h3> 
+                <span style="font-size: 0.9em;">Tech: <b th:text="${username}">User</b></span>
+            </div>
 
-            <form id="search-form">
-                <div class="form-group">
-                    <label for="dist-id-input" th:text="#{attendant.main.label}">Insert attendant-id</label>
-                    <input type="text" id="dist-id-input" name="dist-id" th:placeholder="#{attendant.main.placeholder}">
-                </div>
-                <button type="button" id="btn-load" th:text="#{attendant.main.button}">Upload State</button>
-            </form>
-            
-            <a th:href="@{/attendant/login}" style="color: #dc3545; text-decoration: none; margin-top: 20px; text-align: center; display: block;" th:text="#{attendant.main.logout}">Logout</a>
-        </div>
+            <div style="overflow-x: auto;">
+                <table class="tech-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Status</th>
+                            <th>Coffee</th>
+                            <th>Milk</th>
+                            <th>Sugar</th>
+                            <th>Cups</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="d : ${distributors}">
+                            <td th:text="${d.id}" style="font-weight: bold;">D-123</td>
+                            
+                            <td>
+                                <span th:text="${d.status}" 
+                                      th:class="${d.status == 'active' ? 'status-active' : 'status-broken'}">
+                                    active
+                                </span>
+                            </td>
 
-        <div class="card" id="results-card" style="display: none;">
-            <h4 id="result-header">Distributor state: ...</h4>
+                            <td th:text="${d.coffeeLevel} + '%'" th:class="${d.coffeeLevel < 20 ? 'level-low' : ''}">80%</td>
+                            <td th:text="${d.milkLevel} + '%'" th:class="${d.milkLevel < 20 ? 'level-low' : ''}">50%</td>
+                            <td th:text="${d.sugarLevel} + '%'" th:class="${d.sugarLevel < 20 ? 'level-low' : ''}">90%</td>
+                            <td th:text="${d.cupsLevel}" th:class="${d.cupsLevel < 10 ? 'level-low' : ''}">50</td>
+
+                            <td>
+                                <div style="display: flex; gap: 5px; justify-content: center;">
+                                    
+                                    <form th:action="@{/maintenance/refill}" method="post">
+                                        <input type="hidden" name="id" th:value="${d.id}">
+                                        <button type="submit" class="btn-action btn-refill" title="Refill">
+                                            🔄
+                                        </button>
+                                    </form>
+
+                                    <form th:action="@{/maintenance/repair}" method="post" th:if="${d.status != 'active'}">
+                                        <input type="hidden" name="id" th:value="${d.id}">
+                                        <button type="submit" class="btn-action btn-repair" title="Repair">
+                                            🛠
+                                        </button>
+                                    </form>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             
-            <ul style="list-style-position: inside; margin-top: 15px; font-size: 1.1rem; line-height: 1.6;">
-                <li>
-                    <span th:text="#{attendant.main.status.coffee}">Coffee:</span> 
-                    <span id="val-coffee" style="font-weight: 600;">-</span>%
-                </li>
-                <li>
-                    <span th:text="#{attendant.main.status.cups}">Cups:</span> 
-                    <span id="val-cups" style="font-weight: 600;">-</span>%
-                </li>
-                <li>
-                    <span th:text="#{attendant.main.status.sugar}">Sugar:</span> 
-                    <span id="val-sugar" style="font-weight: 600;">-</span>%
-                </li>
-                <li>
-                    <span th:text="#{attendant.main.status.faults}">Faults:</span> 
-                    <span id="val-faults" style="color: #dc3545; font-weight: 600;">-</span>
-                </li>
-            </ul>
+            <a th:href="@{/maintenance/logout}" style="color: #dc3545; text-decoration: none; margin-top: 30px; text-align: center; display: block;">Secure Logout</a>
         </div>
 
     </div>
 
-    <script th:src="@{/js/main.js}"></script>
-    <script th:src="@{/js/attendant.js}"></script>
-
-</body>
+    </body>
 </html>

@@ -27,7 +27,9 @@
   <xs:complexType name="TypeOfDistributor">
     <xs:sequence>
       <xs:element name="position" type="xs:string"/>
-      <xs:element name="supply" type="TypeOfSupply"/> <xs:element name="faults" type="TypeOfFaults"/>      </xs:sequence>
+      <xs:element name="supply" type="TypeOfSupply"/>
+      <xs:element name="faults" type="TypeOfFaults"/>
+    </xs:sequence>
     <xs:attribute name="id" type="xs:string" use="required"/>
     <xs:attribute name="state" use="required">
       <xs:simpleType>

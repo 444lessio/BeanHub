@@ -1,4 +1,5 @@
 Manutenzione: http://localhost:8080/attendant/login
 Gestore: http://localhost:8080/System_manager/login
 Distributore: http://localhost:8080/distributor
-Cliente: http://localhost:8080/
+Cliente: http://localhost:8080/customer/login
+H2db: http://localhost:8080/h2-console

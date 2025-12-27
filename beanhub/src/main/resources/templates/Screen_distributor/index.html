@@ -2,79 +2,109 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="#{distributor.title}">Coffee Distributor</title>
+    <title>Distributor Interface</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     
     <style>
-        .distributor-header h3, 
-        .distributor-header p {
-            color: #333 !important;
-            margin-bottom: 0.5rem;
+        /* Nascondiamo l'interfaccia se nessuno è connesso */
+        .waiting-mode .distributor-interface { display: none; }
+        .waiting-mode .waiting-screen { display: block; }
+        
+        /* Nascondiamo la schermata di attesa se qualcuno è connesso */
+        .active-mode .distributor-interface { display: block; }
+        .active-mode .waiting-screen { display: none; }
+        
+        .waiting-screen {
+            text-align: center;
+            padding: 50px;
+            font-size: 2em;
+            color: #666;
         }
     </style>
 </head>
 
-<body>
+<body th:data-distributor-id="${machineId}" class="waiting-mode">
 
-    <div class="language-switcher">
-        <th:block th:with="currentLang=${#locale.language}">
-            <button onclick="toggleLangDropdown()" class="dropdown-toggle">
-                <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
-                <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" th:unless="${currentLang == 'it'}">
-                
-                <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
-                <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
-
-                <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
-            </button>
-            
-            <div id="lang-dropdown" class="dropdown-content">
-                <a th:href="@{?lang=en}">
-                    <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
-                    <span th:text="#{lang.en}">EN</span>
-                </a>
-                <a th:href="@{?lang=it}">
-                    <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
-                    <span th:text="#{lang.it}">IT</span>
-                </a>
-            </div>
-        </th:block>
+    <div class="waiting-screen">
+        <h1>👋 Ciao!</h1>
+        <p>In attesa di connessione...</p>
+        <p style="font-size: 0.6em;">Usa l'app per connetterti a: <b id="disp-id-display" th:text="${machineId}">Caricamento...</b></p>
     </div>
 
-    <div class="card distributor-container">
+    <div class="card distributor-container distributor-interface">
+        
         <div class="distributor-header">
             <h3>
-                <span th:text="#{distributor.user}">User:</span> 
-                <span id="user-name">Loading...</span>
+                Utente: <span id="user-name">...</span>
             </h3>
-            
             <p style="font-size: 1.2rem;">
-                <span th:text="#{distributor.credit}">Credit:</span> 
-                <span id="user-credit">€ 0.00</span>
+                Credito: <span id="user-credit">€ 0.00</span>
             </p>
         </div>
 
         <div class="drinks-grid">
-            <button class="drink-btn" data-price="0.50" th:text="#{distributor.drink.coffee}">Espresso Coffee</button>
-            <button class="drink-btn" data-price="0.60" th:text="#{distributor.drink.long_coffee}">American Coffee</button>
-            <button class="drink-btn" data-price="1.20" th:text="#{distributor.drink.cappuccino}">Cappuccino</button>
-            <button class="drink-btn" data-price="1.50" th:text="#{distributor.drink.chocolate}">Chocolate</button>
-            <button class="drink-btn" data-price="0.80" th:text="#{distributor.drink.tea}">Lemon Thè</button>
-            <button class="drink-btn" data-price="1.00" th:text="#{distributor.drink.latte}">Macchiato Milk</button>
+            <button class="drink-btn" data-price="0.50">Espresso</button>
+            <button class="drink-btn" data-price="0.60">Americano</button>
+            <button class="drink-btn" data-price="1.20">Cappuccino</button>
+            <button class="drink-btn" data-price="1.50">Cioccolata</button>
+            <button class="drink-btn" data-price="0.80">Tè al Limone</button>
+            <button class="drink-btn" data-price="1.00">Latte Macchiato</button>
         </div>
 
         <div class="sugar-options">
-            <label th:text="#{distributor.sugar.label}">Sugar:</label>
-            <input type="range" id="sugar-slider" min="0" max="5" value="2" step="1">
-            <span id="sugar-value" th:text="#{distributor.sugar.value}">Medium</span>
+            <label>Zucchero:</label>
+            <input type="range" id="sugar-slider" min="0" max="5" value="2">
+            <span id="sugar-value">Medio</span>
         </div>
 
-        <button id="purchase" th:text="#{distributor.button.buy}" style="display:none;">Dispensa Drink</button>
+        <button id="purchase" style="display: none;">Dispensa Drink</button>
     </div>
 
-    <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/distributor.js}"></script>
 
+    <script>
+        // --- LOGICA DINAMICA AGGIORNATA ---
+
+        // 1. Invece di guardare l'URL o usare D-01 fisso,
+        // LEGGIAMO l'attributo che Thymeleaf ha scritto nel tag <body>
+        const myDistributorId = document.body.getAttribute('data-distributor-id');
+
+        // Debug console
+        console.log("------------------------------------------------");
+        console.log("🤖 DISTRIBUTORE AVVIATO");
+        console.log("🆔 ID Recuperato dal DB: " + myDistributorId);
+        console.log("------------------------------------------------");
+
+        if (!myDistributorId || myDistributorId === "UNKNOWN") {
+            console.warn("⚠️ ATTENZIONE: Nessun distributore trovato nel Database o ID non passato dal Controller.");
+        }
+
+        // --- FUNZIONE HEARTBEAT ---
+        function sendHeartbeat() {
+            // Evita di mandare richieste se l'ID non è valido
+            if (!myDistributorId || myDistributorId === "UNKNOWN") return;
+
+            console.log("💓 Invio heartbeat per: " + myDistributorId);
+
+            // Chiamata asincrona al server
+            fetch(`/api/distributor/${myDistributorId}/heartbeat`, {
+                method: 'POST'
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log("✅ Heartbeat successo: " + new Date().toLocaleTimeString());
+                } else {
+                    console.error("❌ Errore heartbeat: Distributore non trovato o server offline (Codice: " + response.status + ")");
+                }
+            })
+            .catch(error => console.error("⚠️ Errore di connessione:", error));
+        }
+
+        // 1. Invia il primo segnale appena la pagina si apre
+        sendHeartbeat();
+
+        // 2. Imposta un timer per ripeterlo ogni 60 secondi (60000 ms)
+        setInterval(sendHeartbeat, 60000);
+    </script>
 </body>
 </html>

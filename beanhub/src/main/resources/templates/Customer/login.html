@@ -4,11 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="#{customer.login.title}">Customer Login</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}"> 
+        <style>
+        body { background-color: #e9ecef; } 
+        .login-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: 100px auto;
+            text-align: center;
+            border-top: 5px solid #17a2b8; 
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn-tech {
+            background-color: #17a2b8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-tech:hover { background-color: #138496; }
+        .error { color: #dc3545; margin-bottom: 15px; font-size: 0.9em; }
+    </style>
 </head>
-<body class="login-page">
-
-    <div class="language-switcher">
+<body class="login-body"> <div class="language-switcher">
         <th:block th:with="currentLang=${#locale.language}">
             <button onclick="toggleLangDropdown()" class="dropdown-toggle">
                 <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
@@ -33,27 +64,52 @@
         </th:block>
     </div>
 
-    <div class="card">
-        <h2 th:text="#{customer.login.header}">Customer Login</h2>
+    <div class="login-card">
+        <div style="font-size: 40px; margin-bottom: 10px;">☕</div>
         
-        <form th:action="@{/customer/main}" method='get'>
-            <div class="form-group">
-                <label for="email" th:text="#{customer.login.email}">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password" th:text="#{customer.login.password}">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div> 
-            <button type="submit" th:text="#{customer.login.button}">Log In</button>
-        </form>
+        <h2 th:text="#{customer.login.title}">Customer Login</h2>
+        <p style="color: #666; margin-bottom: 30px; font-size: 0.9em;">Welcome back!</p>
+
+        <div th:if="${error}" class="error">
+            <p th:text="${error}" style="margin: 0;">Error message</p>
+        </div>
+
+        <form th:action="@{/customer/login}" method="post">
+            
+            <input type="text" id="username" name="username" placeholder="Username (es. alessio)" required>
+
+            <input type="password" id="password" name="password" placeholder="Password">
+
+            <button type="submit" class="btn btn-customer">LOGIN</button>
+        </form> <div style="margin-top: 15px; text-align: center;">
+            <span>Non hai un account? </span>
+            <a th:href="@{/customer/signup}" style="font-weight: bold;">Registrati qui</a>
+        </div>
         
-        <p style="text-align: center; margin-top: 15px;" th:inline="text">
-            [[#{customer.login.signup_prompt}]]
-            <a th:href="@{/customer/signup}" th:text="#{customer.login.signup_action}" class="signup-link">Signup</a>
-        </p>
+
+        <div style="margin-top: 25px; font-size: 0.85em;">
+            <a th:href="@{/maintenance/login}" style="color: #6c757d; text-decoration: none;">Are you a Technician?</a>
+        </div>
     </div>
 
     <script th:src="@{/js/main.js}"></script>
+    
+    <script>
+        function toggleLangDropdown() {
+            document.getElementById("lang-dropdown").classList.toggle("show");
+        }
+        
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropdown-toggle') && !event.target.parentNode.matches('.dropdown-toggle')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
 </body>
 </html>

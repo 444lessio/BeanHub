@@ -2,54 +2,71 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="#{attendant.login.title}">Attendant Login</title>
+    <title>Tech Login</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body { background-color: #e9ecef; } 
+        .login-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: 100px auto;
+            text-align: center;
+            border-top: 5px solid #17a2b8; 
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn-tech {
+            background-color: #17a2b8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-tech:hover { background-color: #138496; }
+        .error { 
+            color: #721c24; 
+            background-color: #f8d7da; 
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            margin-bottom: 15px; 
+            border-radius: 4px;
+            font-size: 0.9em; 
+        }
+    </style>
 </head>
-<body class="login-page">
+<body>
 
-    <div class="language-switcher">
-        <th:block th:with="currentLang=${#locale.language}">
-            <button onclick="toggleLangDropdown()" class="dropdown-toggle">
-                <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
-                <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" th:unless="${currentLang == 'it'}">
-                
-                <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
-                <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
+    <div class="login-card">
+        <h2>Maintenance Access</h2>
+        <p style="color: gray; margin-bottom: 20px;">Authorized personnel only</p>
 
-                <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
-            </button>
+        <div th:if="${error}" class="error">
+             <span th:text="${error}">Error message</span>
+        </div>
+
+        <form th:action="@{/maintenance/login}" method="post">
+            <input type="text" name="username" placeholder="Tech ID (es. tech)" required>
+            <input type="password" name="password" placeholder="Password" required>
             
-            <div id="lang-dropdown" class="dropdown-content">
-                <a th:href="@{?lang=en}">
-                    <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
-                    <span th:text="#{lang.en}">EN</span>
-                </a>
-                <a th:href="@{?lang=it}">
-                    <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
-                    <span th:text="#{lang.it}">IT</span>
-                </a>
-            </div>
-        </th:block>
-    </div>
-
-    <div class="card">
-        <h2 th:text="#{attendant.login.header}">Maintenance Attendant Login</h2>
-        
-        <form th:action="@{/attendant/main}" method="get">
-            <div class="form-group">
-                <label for="attendant-id" th:text="#{attendant.login.id}">Attendant ID</label>
-                <input type="text" id="attendant-id" name="attendant-id" required>
-            </div>
-            <div class="form-group">
-                <label for="password" th:text="#{attendant.login.password}">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" th:text="#{attendant.login.button}">Login</button>
+            <button type="submit" class="btn-tech">LOGIN</button>
         </form>
-    </div>
 
-    <script th:src="@{/js/main.js}"></script>
+        <div style="margin-top: 20px; font-size: 0.8em;">
+            <a th:href="@{/customer/login}" style="color: #6c757d;">Not a technician? Customer Login</a>
+        </div>
+    </div>
 
 </body>
 </html>

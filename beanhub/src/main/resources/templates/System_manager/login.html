@@ -4,48 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="#{manager.login.title}">Manager Login</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+        body {
+            background-color: #f0f2f5;
+            display: flex; /* Flexbox per centrare */
+            justify-content: center; /* Centra orizzontalmente */
+            align-items: center; /* Centra verticalmente */
+            height: 100vh; /* Altezza piena pagina */
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .card {
+            width: 100%;
+            max-width: 400px; /* Larghezza massima del box login */
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Ombretta */
+            background: white;
+            border-radius: 10px;
+        }
+        /* Stile semplice per il dropdown lingua */
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
+        .form-group input { width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px; }
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #0d6efd; /* Blu Bootstrap */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button[type="submit"]:hover { background-color: #0b5ed7; }
+    </style>
 </head>
 <body class="login-page">
 
     <div class="language-switcher">
         <th:block th:with="currentLang=${#locale.language}">
-            <button onclick="toggleLangDropdown()" class="dropdown-toggle">
+            <button onclick="toggleLangDropdown()" class="btn btn-light btn-sm dropdown-toggle" style="display: flex; align-items: center; gap: 5px;">
                 <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag" th:if="${currentLang == 'it'}">
                 <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag" th:unless="${currentLang == 'it'}">
                 <span th:if="${currentLang == 'it'}" th:text="#{lang.it}">IT</span>
                 <span th:unless="${currentLang == 'it'}" th:text="#{lang.en}">EN</span>
-                <span style="font-size: 0.8em; margin-left: 5px;">▼</span>
             </button>
-            <div id="lang-dropdown" class="dropdown-content">
-                <a th:href="@{?lang=en}">
-                    <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
-                    <span th:text="#{lang.en}">EN</span>
+            
+            <div id="lang-dropdown" class="dropdown-menu" style="display: none; position: absolute; right: 0;">
+                <a th:href="@{?lang=en}" class="dropdown-item">
+                    <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag"> <span th:text="#{lang.en}">EN</span>
                 </a>
-                <a th:href="@{?lang=it}">
-                    <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag">
-                    <span th:text="#{lang.it}">IT</span>
+                <a th:href="@{?lang=it}" class="dropdown-item">
+                    <img src="https://flagcdn.com/16x12/it.png" alt="IT Flag"> <span th:text="#{lang.it}">IT</span>
                 </a>
             </div>
         </th:block>
     </div>
 
     <div class="card">
-        <h2 th:text="#{manager.login.header}">System Manager Login</h2>
+        <h2 th:text="#{manager.login.header}" class="text-center mb-4">System Manager Login</h2>
         
-        <form th:action="@{/System_manager/dashboard}" method="get">
+        <div th:if="${param.error}" class="alert alert-danger text-center">
+            Invalid username or password.
+        </div>
+        <div th:if="${param.logout}" class="alert alert-success text-center">
+            You have been logged out.
+        </div>
+
+        <form th:action="@{/System_manager/login}" method="post">
             <div class="form-group">
                 <label for="username" th:text="#{manager.login.username}">Username</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" class="form-control" required autofocus>
             </div>
             <div class="form-group">
                 <label for="password" th:text="#{manager.login.password}">Password</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" class="form-control" required>
             </div>
-            <button type="submit" th:text="#{manager.login.button}">Login</button>
+            <button type="submit" class="btn btn-primary" th:text="#{manager.login.button}">Login</button>
         </form>
     </div>
 
+    <script>
+        function toggleLangDropdown() {
+            var dropdown = document.getElementById("lang-dropdown");
+            if (dropdown.style.display === "none" || dropdown.style.display === "") {
+                dropdown.style.display = "block";
+            } else {
+                dropdown.style.display = "none";
+            }
+        }
+    </script>
     <script th:src="@{/js/main.js}"></script>
 
 </body>
